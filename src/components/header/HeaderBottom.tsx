@@ -1,6 +1,6 @@
-import CartButton from "./CartButton";
+import CartButton from "../cart/CartButton";
+import WishlistButton from "../wishlist/WishlistButton";
 import CategoryMenu from "./CategoryMenu";
-import WishlistButton from "./WishlistButton";
 
 const HeaderBottom = () => {
   return (
@@ -8,7 +8,7 @@ const HeaderBottom = () => {
       <CategoryMenu />
       <div className="flex items-center gap-4">
         <WishlistButton />
-        <CartButton />
+        <CartButton/>
       </div>
     </div>
   );
