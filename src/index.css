@@ -4,6 +4,24 @@
 
 @layer base {
   body {
-    @apply bg-zinc-50 text-zinc-700 tracking-tight font-yekan;
+    @apply bg-zinc-200 text-zinc-700 tracking-tight font-yekan;
+  }
+}
+
+@layer components {
+  ::-webkit-scrollbar {
+    @apply w-1;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-zinc-200;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-zinc-500 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-zinc-600;
   }
 }

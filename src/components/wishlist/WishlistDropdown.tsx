@@ -1,13 +1,13 @@
 import { Trash2 } from "lucide-react";
-import { CartItem } from "../../types/cartItem";
 import { Link } from "react-router-dom";
+import { ProductType } from "../../types/product";
 
-const WishlistDropdown = ({ items }: { items: CartItem[] }) => {
+const WishlistDropdown = ({ items }: { items: ProductType[] }) => {
   if (items.length === 0) {
     return <p className="text-zinc-500">سبد علاقه مندی ها خالی است</p>;
   }
   return (
-    <div className="w-[448px] max-h-[448px] bg-zinc-50 border border-zinc-300 absolute left-0 top-11   overflow-y-auto rounded-md flex flex-col divide-y divide-zinc-300 shadow-lg">
+    <div className="w-[448px] max-h-[448px] bg-zinc-50 border border-zinc-300 absolute left-0 top-9   overflow-y-auto rounded-md flex flex-col divide-y divide-zinc-300 shadow-lg">
       <h3 className="py-4 text-center text-md font-bold">علاقه مندی ها</h3>
       <div className="w-full flex flex-col items-start justify-start divide-y divide-zinc-300 ">
         {items.map((item) => (

@@ -1,30 +1,12 @@
 import { Header } from "../components/header";
-
-// const CartContent = () => (
-//   <div>
-//     <p>محصولات سبد خرید شما:</p>
-//     <ul>
-//       <li>محصول ۱</li>
-//       <li>محصول ۲</li>
-//     </ul>
-//   </div>
-// );
-
-// const FavoritesContent = () => (
-//   <div>
-//     <p>محصولات مورد علاقه شما:</p>
-//     <ul>
-//       <li>محصول A</li>
-//       <li>محصول B</li>
-//     </ul>
-//   </div>
-// );
+import { Hero } from "../components/hero";
 
 const HomePage = () => {
   return (
-    <div>
-      <div className="w-full min-h-screen flex flex-col gap-12">
-        <Header/>
+    <div className="w-full min-h-screen flex flex-col">
+      <Header />
+      <div className="container mx-auto p-2">
+        <Hero />
       </div>
     </div>
   );

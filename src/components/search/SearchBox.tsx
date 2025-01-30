@@ -1,55 +1,36 @@
-import { useState, useEffect } from "react";
+import { useRef, useState } from "react";
+import useClickOutside from "../../hooks/useClickOutside";
+import { Search } from "lucide-react";
 import SearchResults from "./SearchResults";
-import { Loader2, Search } from "lucide-react";
 
 const SearchBox = () => {
-  const [query, setQuery] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (!(event.target as HTMLElement).closest(".search-container")) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  useEffect(() => {
-    if (query.length > 0) {
-      setIsLoading(true);
-      const timeout = setTimeout(() => {
-        setIsLoading(false);
-      }, 1000);
-
-      return () => clearInterval(timeout);
-    }
-  }, [query]);
+  useClickOutside(dropdownRef, () => setIsDropdownOpen(false));
 
   return (
-    <div className="relative search-container w-full max-w-xl">
+    <div ref={dropdownRef} className="relative w-full max-w-xl">
       <input
         type="text"
-        placeholder="جستجو کنید..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        onFocus={() => setIsOpen(true)}
-        className="text-sm text-zinc-500 bg-zinc-100 w-full py-3 px-8 pr-12 rounded-lg border border-zinc-300 focus:outline-none focus-visible:outline-none focus-visible:ring-0 placeholder:text-zinc-400"
+        placeholder="جستجو کن..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        onFocus={() => setIsDropdownOpen(true)}
+        aria-label="Search for products"
+        aria-expanded={isDropdownOpen}
+        className="bg-zinc-100 w-full h-12 pl-4 pr-14 rounded-md text-sm border border-zinc-300 focus:outline-none focus-visible:outline-none focus-visible:ring-0 placeholder:text-zinc-400"
       />
 
-      <Search className="absolute top-1/2 -translate-y-1/2 right-3 text-zinc-400" />
+      <Search
+        className="text-zinc-400 absolute top-1/2 -translate-y-1/2 right-5"
+        strokeWidth={1.5} size={18}
+      />
 
-      {isOpen && query.length > 0 && (
-        <div className="absolute w-full mt-2 bg-white border border-zinc-300 rounded-lg shadow-md">
-          {isLoading ? (
-            <div className="p-4 flex justify-center items-center">
-              <Loader2 className="text-zinc-500 animate-spin" size={24} />
-            </div>
-          ) : (
-            <SearchResults query={query} />
-          )}
+      {isDropdownOpen && searchQuery.length > 0 && (
+        <div className="absolute w-full top-14 rounded-lg shadow-lg z-50 bg-zinc-50">
+          <SearchResults searchQuery={searchQuery} />
         </div>
       )}
     </div>

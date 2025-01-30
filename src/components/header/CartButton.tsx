@@ -25,7 +25,12 @@ const mockCartItems = [
 const CartButton = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   // const [cartItems, setCartItems] = useState(mockCartItems);
-  const cartItems = mockCartItems;
+  const cartItems: {
+    id: number;
+    image: string;
+    name: string;
+    quantity: number;
+}[] = mockCartItems;
 
   // Close dropdown when clicking outside
   useEffect(() => {

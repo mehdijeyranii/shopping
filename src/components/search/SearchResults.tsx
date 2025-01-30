@@ -1,46 +1,39 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import useProductSearch from "../../hooks/useProductSearch";
+import { Loader2 } from "lucide-react";
+import { Link } from "react-router-dom";
 
-interface SearchResultsProps {
-  query: string;
-}
-
-const SearchResults = ({ query }: SearchResultsProps) => {
-  const [results, setResults] = useState<string[]>([]);
+const SearchResults = ({ searchQuery }: { searchQuery: string }) => {
+  const { filteredProducts, isSearchLoading } = useProductSearch(searchQuery);
 
   useEffect(() => {
-    if (query.length > 0) {
-      const fetchResults = async () => {
-        const allItems = [
-          "موبایل",
-          "لپ‌تاپ",
-          "هدفون",
-          "تلویزیون",
-          "ساعت هوشمند",
-        ];
-        const filtered = allItems.filter((item) =>
-          item.toLowerCase().includes(query.toLowerCase())
-        );
-        setResults(filtered);
-      };
-      fetchResults();
-    } else {
-      setResults([]);
-    }
-  }, [query]);
+    document.body.style.overflow =
+      filteredProducts.length > 0 ? "hidden" : "auto";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [filteredProducts]);
 
   return (
-    <div className="absolute w-full mt-2 bg-white border rounded-lg shadow-lg">
-      {results.length > 0 ? (
-        results.map((item, index) => (
-          <div
-            key={index}
-            className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+    <div className="w-full h-auto max-h-80 overflow-y-auto flex flex-col justify-start items-start bg-zinc-50 border border-zinc-300 rounded-lg shadow-lg">
+      {isSearchLoading ? (
+        <div className="w-full h-12 grid place-content-center">
+          <Loader2 className="animate-spin text-zinc-500" />
+        </div>
+      ) : filteredProducts.length > 0 ? (
+        filteredProducts.map((product, productIndex) => (
+          <Link
+            to="#"
+            key={productIndex}
+            className="px-4 py-2 hover:bg-zinc-100 cursor-pointer w-full"
           >
-            {item}
-          </div>
+            {product.name}
+          </Link>
         ))
       ) : (
-        <div className="px-4 py-2 text-gray-500">نتیجه‌ای یافت نشد</div>
+        <p className="w-full h-12 text-zinc-500 grid place-content-center">
+          نتیجه ای یافت نشد
+        </p>
       )}
     </div>
   );

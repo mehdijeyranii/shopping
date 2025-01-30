@@ -1,14 +1,17 @@
 import { Trash2 } from "lucide-react";
-import { CartItem } from "../../types/cartItem";
 import { Link } from "react-router-dom";
+import { ProductType } from "../../types/product";
 
-const CartDropdown = ({ items }: { items: CartItem[] }) => {
+const CartDropdown = ({ items }: { items: ProductType[] }) => {
   if (items.length === 0) {
     return <p className="text-zinc-500">سبد خرید خالی است</p>;
   }
   return (
-    <div className="w-[448px] max-h-[448px] bg-zinc-50 border border-zinc-300 absolute left-0 top-11   overflow-y-auto rounded-md flex flex-col divide-y divide-zinc-300 shadow-lg">
-      <h3 className="py-4 text-center text-md font-bold">سبد خرید</h3>
+    <div className="w-[448px] max-h-[448px] bg-zinc-50 border border-zinc-300 absolute left-0 top-9   overflow-y-auto rounded-md flex flex-col divide-y divide-zinc-300 shadow-lg">
+      <div className="py-4 px-2 flex flex-col justify-center items-center gap-2">
+      <h3 className="text-xl font-bold">سبد خرید</h3>
+      <span className="text-xs">4 محصول</span>
+      </div>
       <div className="w-full flex flex-col items-start justify-start divide-y divide-zinc-300 ">
         {items.map((item) => (
           <div
@@ -26,11 +29,11 @@ const CartDropdown = ({ items }: { items: CartItem[] }) => {
               {item.name}
             </Link>
             <div className="bg-zinc-50 p-1 flex rounded flex-1 border border-zinc-300">
-              <button className="bg-zinc-300 size-6 rounded-s">+</button>
+              <button className="bg-zinc-300 size-6 rounded-s hover:bg-green-600 hover:text-zinc-50">+</button>
               <span className="size-6 text-xs grid place-content-center">
                 {item.quantity}
               </span>
-              <button className="bg-zinc-300 size-6 rounded-e">-</button>
+              <button className="bg-zinc-300 size-6 rounded-e hover:bg-rose-500 hover:text-zinc-50">-</button>
             </div>
             <span className="text-xs block text-center flex-[3]">
               {item.price}

@@ -6,6 +6,10 @@ export default {
       fontFamily: {
         yekan: ["Yekan Bakh FaNum", "sans-serif"],
       },
+      backgroundImage: {
+        'hero-pattern': "url('./src/assets/bg-hero.svg')",
+        
+      },
     },
   },
   plugins: [],

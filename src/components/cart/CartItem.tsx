@@ -1,9 +1,9 @@
 import { Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { CartItem } from "../../types/cartItem";
+import { ProductType } from "../../types/product";
 
 type CartItemProps = {
-  item: CartItem;
+  item: ProductType;
 };
 
 const CartItem = ({ item }: CartItemProps) => {

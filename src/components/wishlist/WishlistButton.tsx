@@ -1,35 +1,37 @@
 import { Heart } from "lucide-react";
 import { useMemo, useRef, useState } from "react";
-import { mockCartItems } from "../../data/cartData";
+import { products } from "../../data/product";
 import useClickOutside from "../../hooks/useClickOutside";
 import WishlistDropdown from "./WishlistDropdown";
 
 const WishlistButton = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const cartButtonRef = useRef<HTMLDivElement>(null);
+  const wishlistButtonRef = useRef<HTMLDivElement>(null);
 
-  useClickOutside(cartButtonRef, () => setIsDropdownOpen(false));
+  useClickOutside(wishlistButtonRef, () => setIsDropdownOpen(false));
 
   const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
 
   const dropdownContent = useMemo(() => {
-    return isDropdownOpen && <WishlistDropdown items={mockCartItems} />;
+    return isDropdownOpen && <WishlistDropdown items={products} />;
   }, [isDropdownOpen]);
 
   return (
     <div
-      ref={cartButtonRef}
-      className="relative size-10 grid place-content-center rounded-full  "
+      ref={wishlistButtonRef}
+      className="relative size-8 grid place-content-center rounded-md bg-zinc-100 border-[1px] border-zinc-300"
     >
       <button
-        aria-label="cart"
+        aria-label="wishlist"
         onClick={toggleDropdown}
         aria-expanded={isDropdownOpen}
-        className="text-zinc-500"
+        className="text-zinc-400"
       >
-        <Heart />
-        {mockCartItems.length > 0 && (
-          <span className="bg-sky-500 size-3 rounded-full absolute top-1 right-1"></span>
+        <Heart size={20} />
+        {products.length > 0 && (
+          <span className="bg-sky-500 size-5 grid place-content-center rounded-full absolute -bottom-1 -right-2 text-[10px] font-bold text-white">
+            99
+          </span>
         )}
       </button>
 
